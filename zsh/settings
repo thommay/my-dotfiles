@@ -1,0 +1,49 @@
+eval "$(lesspipe)"
+export EDITOR="nvim -f"
+export PAGER=$(which less)
+
+WORDCHARS=${WORDCHARS//[&=\/;!#%\{]}
+WATCHFMT='%n has %a %l from %M.'
+DIRSTACKSIZE=9
+HISTFILE=~/.zsh_history
+HISTSIZE=500
+LISTMAX=0
+LOGCHECK=60
+REPORTTIME=3
+SAVEHIST=500
+watch=(notme)
+
+setopt APPEND_HISTORY AUTO_PARAM_KEYS AUTO_MENU AUTO_PARAM_SLASH AUTO_PUSHD \
+        AUTO_REMOVE_SLASH BAD_PATTERN BARE_GLOB_QUAL BSD_ECHO COMPLETE_ALIASES COMPLETE_IN_WORD CORRECT \
+        CORRECT_ALL EQUALS EXTENDED_GLOB EXTENDED_HISTORY GLOB \
+        HASH_CMDS HASH_DIRS \
+        HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_NO_STORE \
+        INC_APPEND_HISTORY SHARE_HISTORY \
+        KSH_GLOB LIST_TYPES LONG_LIST_JOBS \
+        MAGIC_EQUAL_SUBST MARK_DIRS MULTIOS NOMATCH NOTIFY \
+        NUMERIC_GLOB_SORT NO_FLOW_CONTROL POSIX_BUILTINS PRINT_EXIT_VALUE PROMPT_PERCENT \
+        PROMPTSUBST PUSHD_IGNORE_DUPS PUSHD_TO_HOME REC_EXACT PROMPTCR \
+        SH_WORD_SPLIT
+
+darwin: export JAVA_HOME="/Library/Java/Home"
+export HOMEBREW_NO_EMOJI=1
+
+# Go is frigging weird
+if [ -d "$HOME/go" ]; then
+  export GOPATH="$HOME/go"
+  PATH=$PATH:$GOPATH/bin
+fi
+
+for p in ~/.cargo/bin /opt/chefdk/bin /Users/thom/code/topaz/.jiri_root/bin; do
+  [ -d $p ] && PATH=$PATH:$p
+done
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+PS1='%T %(5~|.../%2c|%~) %# '
+
+function precmd() {
+  PSVAR=`_git_prompt_precmd`
+}
+
+RPROMPT=%v
+export PATH=$PATH

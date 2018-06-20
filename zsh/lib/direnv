@@ -1,0 +1,24 @@
+# The behaviour we want here is to override least specific (ie, home dir) env files with more specific (ie, CWD) ones.
+# So we'll walk upwards, generate a list of files, stuff home on the end and then pop them off and source them.
+
+function direnv() {
+  local -a files
+  local dir="$PWD"
+  local take
+
+  until [[ -z "$dir" ]]; do
+    if [[ -f "$dir/.env" ]]; then files+=("$dir/.env"); fi
+    dir="${dir%/*}"
+  done
+
+  if [[ -f "$HOME/.env" ]]; then files+=("$HOME/.env"); fi
+
+  until [[ -z $files ]]; do
+    take=$files[-1,-1]
+    files=($files[1,-2])
+    . $take
+  done
+}
+
+chpwd_functions+=("direnv")
+direnv

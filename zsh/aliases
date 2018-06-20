@@ -1,0 +1,25 @@
+alias grep='egrep --color=auto'
+
+alias be='nocorrect bundle exec'
+$(which hub >/dev/null 2>&1) && alias git=hub
+alias ls=' ls'
+alias cd=' cd'
+alias la='ls -a'
+alias ll='ls -l'
+alias vi="nvim"
+alias vim="nvim"
+
+alias -g G='|grep'
+alias -g L='|less'
+
+function get_repo_url() {
+  git browse -u -- blob/master/$1
+}
+
+# use bundle exec with a custom gem path
+function bep () {
+  gemfile=$1
+  shift
+  BUNDLE_GEMFILE=$gemfile bundle exec $@
+}
+

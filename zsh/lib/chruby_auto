@@ -1,0 +1,30 @@
+# https://github.com/nathanl/.dotfiles/blob/ff013edb1850f6a576c97958ec130778daa082b5/zsh/chruby
+
+. ~/.nix-profile/share/chruby/chruby.sh
+
+unset RUBY_AUTO_VERSION
+
+function chruby_auto() {
+  local dir="$PWD/" version
+
+  until [[ -z "$dir" ]]; do
+    
+    if { read -r version <"$dir/.ruby-version"; } 2>/dev/null || [[ -n $version ]]; then
+      if [[ "$version" == "$RUBY_AUTO_VERSION" ]]; then return
+      else
+        RUBY_AUTO_VERSION=$version
+        chruby $version
+        return $?
+      fi
+    fi
+    dir="${dir%/*}"
+  done
+
+  if [[ -n "$RUBY_AUTO_VERSION" ]]; then
+    chruby_reset
+    unset RUBY_AUTO_VERSION
+  fi
+}
+
+chpwd_functions+=("chruby_auto")
+chruby_auto

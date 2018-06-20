@@ -1,0 +1,52 @@
+[github]
+  user = thommay
+[user]
+	name = Thom May
+  email = thom@may.lt
+[hub]
+	http-clone = true
+	protocol = https
+[credential]
+	helper = osxkeychain
+[push]
+	default = current
+[core]
+	excludesfile = /Users/thom/.gitignore_global
+	autocrlf = input
+[url "https://github.com/"]
+	insteadOf = git://github.com/
+[diff]
+	algorithm = patience
+  compactionHeuristic = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[rebase]
+	autostash = true
+	autosquash = true
+[commit]
+	; gpgsign = true
+[gpg]
+	program = /usr/local/bin/gpg
+[alias]
+  st = status -sb
+  ci = commit -s
+  cm = ci -m
+  ca = ci -av
+  co = checkout
+  cb = "!f() { git fetch; git checkout -b $1 ${2-origin/master}; }; f"
+  lp = log -p
+  amend = commit --amend
+  ai = add -p
+  hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
+  p = pull --rebase --prune
+  pu = push -u
+  pur = "!git push -u ${1-origin} && hub pull-request -b ${2-master}"
+  fu = checkout -f
+  get-pr = "!_git_pr() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1; }; _git_pr"
+  fix = commit --no-gpg-sign --fixup
+  save = commit --no-gpg-sign -m 'save game'
+  squash = "!git fetch origin && git rebase -i --autosquash origin/master"
+	stashq = -c commit.gpgsign=false stash
+  aliases = "!git config -l |grep alias| cut -c 7-"
+  new-tree = "!f() { git fetch; git worktree add -b $1 $2 ${3-origin/master}; }; f"
