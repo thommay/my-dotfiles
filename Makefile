@@ -40,3 +40,9 @@ install-vim: | $(HOME)/.config/nvim $(HOME)/.local/share/nvim/site/autoload/plug
 
 install-dotfiles:
 	ln -sf $(CURDIR)/gitconfig $(HOME)/.gitconfig
+
+fonts: 
+	git submodule update --init --recursive
+
+install-fonts: | fonts
+	cd fonts; ./install.sh "Meslo LG M DZ"
