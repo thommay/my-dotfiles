@@ -5,7 +5,7 @@ export PATH := $(PATH):$(HOME)/.nix-profile/bin
 
 .PHONY: install-nix install-zsh install-vim
 
-all: install-nix install-zsh install-vim install-dotfiles
+all: install-nix install-zsh install-vim install-dotfiles install-fonts
 
 /nix:
 	sudo echo "Warming up the brain farm"
