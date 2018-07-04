@@ -8,10 +8,12 @@ function direnv() {
 
   until [[ -z "$dir" ]]; do
     if [[ -f "$dir/.env" ]]; then files+=("$dir/.env"); fi
+    if [[ -f "$dir/.envrc" ]]; then files+=("$dir/.envrc"); fi
     dir="${dir%/*}"
   done
 
   if [[ -f "$HOME/.env" ]]; then files+=("$HOME/.env"); fi
+  if [[ -f "$HOME/.envrc" ]]; then files+=("$HOME/.envrc"); fi
 
   until [[ -z $files ]]; do
     take=$files[-1,-1]

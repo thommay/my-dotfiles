@@ -21,3 +21,4 @@ zplug load
 autoload -U promptinit
 promptinit
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

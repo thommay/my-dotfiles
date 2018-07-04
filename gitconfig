@@ -31,8 +31,8 @@
 [alias]
   st = status -sb
   ci = commit -s
-  cm = ci -m
-  ca = ci -av
+  cm = commit -s -m
+  ca = commit -s -av
   co = checkout
   cb = "!f() { git fetch; git checkout -b $1 ${2-origin/master}; }; f"
   lp = log -p

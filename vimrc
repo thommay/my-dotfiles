@@ -38,6 +38,8 @@ Plug 'rizzatti/dash.vim'
 Plug 'mattn/gist-vim'
 Plug 'fatih/vim-go'
 Plug 'LnL7/vim-nix'
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
 
 call plug#end()
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -166,6 +168,8 @@ au BufRead,BufNewFile *.hjs set ft=handlebars
 au BufRead,BufNewFile *.txt call s:setupWrap()
 au FileType latex,tex,md,markdown setlocal spell
 au BufRead,BufNewFile */.zsh/* set ft=zsh
+au BufRead,BufNewFile */.zsh/**/* set ft=zsh
+au BufRead,BufNewFile */my-dotfiles/zsh/**/* set ft=zsh
 
 au BufRead,BufNewFile {Berksfile,metadata.rb,recipes/*.rb,resources/*.rb,libraries/*.rb,spec/unit/recipes/*.rb} set ft=ruby.chef
 au FileType ruby.chef let b:neomake_ruby_rubocop_exe = 'cookstyle'

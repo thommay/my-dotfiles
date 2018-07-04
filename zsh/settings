@@ -34,9 +34,10 @@ if [ -d "$HOME/go" ]; then
   PATH=$PATH:$GOPATH/bin
 fi
 
-for p in ~/.cargo/bin /opt/chefdk/bin /Users/thom/code/topaz/.jiri_root/bin; do
+for p in ~/.cargo/bin /opt/chefdk/bin /Users/thom/code/topaz/.jiri_root/bin /improbable/tools/latest/mac; do
   [ -d $p ] && PATH=$PATH:$p
 done
+[ -d /improbable/tools ] && export IMPROBABLE_TOOLS=/improbable/tools
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 PS1='%T %(5~|.../%2c|%~) %# '

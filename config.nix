@@ -7,6 +7,7 @@
         fzf
         git
         gnupg
+        "google-cloud-sdk"
         go
         "hub-2.3.0"
         jq
