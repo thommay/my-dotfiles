@@ -1,3 +1,4 @@
+. ${HOME}/.nix-profile/etc/profile.d/nix.sh
 eval "$(lesspipe)"
 export EDITOR="nvim -f"
 export PAGER=$(which less)
@@ -34,10 +35,9 @@ if [ -d "$HOME/go" ]; then
   PATH=$PATH:$GOPATH/bin
 fi
 
-for p in ~/.cargo/bin /opt/chefdk/bin /Users/thom/code/topaz/.jiri_root/bin /improbable/tools/latest/mac; do
+for p in ~/.cargo/bin /opt/chefdk/bin /Users/thom/code/topaz/.jiri_root/bin; do
   [ -d $p ] && PATH=$PATH:$p
 done
-[ -d /improbable/tools ] && export IMPROBABLE_TOOLS=/improbable/tools
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 PS1='%T %(5~|.../%2c|%~) %# '
@@ -47,4 +47,17 @@ function precmd() {
 }
 
 RPROMPT=%v
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/thommay/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/thommay/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/thommay/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/thommay/google-cloud-sdk/completion.zsh.inc'; fi
+
+if [ -d /improbable/tools ]; then 
+  export IMPROBABLE_TOOLS=/improbable/tools
+  PATH="/improbable/tools/latest/mac:$PATH"
+  export SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh
+fi
+
 export PATH=$PATH

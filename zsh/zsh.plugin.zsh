@@ -17,8 +17,8 @@ fpath+=("${plugin_dir}/lib")
 autoload -Uz chruby_auto
 autoload -Uz direnv
 
-. ${plugin_dir}/aliases
 . ${plugin_dir}/settings
+. ${plugin_dir}/aliases
 
 unalias run-help
 autoload run-help

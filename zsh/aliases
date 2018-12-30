@@ -11,9 +11,13 @@ alias vim="nvim"
 
 alias -g G='|grep'
 alias -g L='|less'
+alias -g C='|pbcopy'
 
 function get_repo_url() {
-  git browse -u -- blob/master/$1
+  parent=$(git rev-parse --show-toplevel)
+  target=$(realpath $1)
+  rel=${target#$parent}
+  git browse -u -- blob/master$rel
 }
 
 # use bundle exec with a custom gem path
@@ -23,3 +27,22 @@ function bep () {
   BUNDLE_GEMFILE=$gemfile bundle exec $@
 }
 
+function run_gpg_agent() {
+  /Users/thommay/.nix-profile/bin/gpg-agent --daemon --options /Users/thommay/.gnupg/gpg-agent.conf
+}
+
+function brun () {
+  pth=$1
+  shift
+  bazel run //go/src/improbable.io/$pth -- $@
+}
+
+function pw () {
+  cmd=$1
+  shift
+  case $cmd in
+    "diff") args="diff --use_bazel $@";;
+    "gen") args="gen --output_dir=/tmp/pw --tag_for_unpinned=$1";;
+  esac
+  bazel run //go/src/improbable.io/cmd/playwright -- $args
+}

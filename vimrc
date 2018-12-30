@@ -8,14 +8,18 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-markdown'
+Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-endwise'
+" This stomps all over the return mapping that ncm2_ultisnips uses
+" Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rake'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
+Plug 'uber/prototool', { 'rtp':'vim/prototool' }
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'mattn/webapi-vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -23,9 +27,14 @@ Plug 'neomake/neomake'
 Plug 'dougireton/vim-chef', { 'for': 'ruby.chef' }
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'dag/vim-fish', { 'for': 'fish' }
-Plug 'autozimu/LanguageClient-neovim' , { 'do': ':UpdateRemotePlugins' }
-Plug 'roxma/nvim-completion-manager'
+Plug 'autozimu/LanguageClient-neovim' , { 'branch': 'next', 'do': ':bash install.sh' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-go'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 Plug 'roxma/ncm-rct-complete'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'Shougo/echodoc.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
@@ -40,6 +49,11 @@ Plug 'fatih/vim-go'
 Plug 'LnL7/vim-nix'
 Plug 'google/vim-maktaba'
 Plug 'bazelbuild/vim-bazel'
+Plug 'Helcaraxan/schemalang-vim'
+Plug 'tpope/vim-speeddating'
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/utl.vim'
+Plug 'jceb/vim-orgmode'
 
 call plug#end()
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -82,72 +96,16 @@ endif
 let g:gist_detect_filetype=1
 let g:gist_open_browser_after_post=1
 
-" from https://raw.githubusercontent.com/jonathanfilip/lucius/master/vim-airline/lucius.vim
-let g:airline#themes#lucius#palette = {}
+let g:deoplete#enable_at_startup = 1
 
-function! airline#themes#lucius#refresh()
-
-    let s:N1 = airline#themes#get_highlight('StatusLine')
-    let s:N2 = airline#themes#get_highlight('Folded')
-    let s:N3 = airline#themes#get_highlight('CursorLine')
-    let g:airline#themes#lucius#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
-
-    let modified_group = airline#themes#get_highlight('Statement')
-    let g:airline#themes#lucius#palette.normal_modified = {
-                \ 'airline_c': [modified_group[0], '', modified_group[2], '', '']
-                \ }
-
-    let warning_group = airline#themes#get_highlight('DiffDelete')
-    let g:airline#themes#lucius#palette.normal.airline_warning = warning_group
-    let g:airline#themes#lucius#palette.normal_modified.airline_warning = warning_group
-
-    let s:I1 = airline#themes#get_highlight('DiffAdd')
-    let s:I2 = s:N2
-    let s:I3 = s:N3
-    let g:airline#themes#lucius#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
-    let g:airline#themes#lucius#palette.insert_modified = g:airline#themes#lucius#palette.normal_modified
-    let g:airline#themes#lucius#palette.insert.airline_warning = g:airline#themes#lucius#palette.normal.airline_warning
-    let g:airline#themes#lucius#palette.insert_modified.airline_warning = g:airline#themes#lucius#palette.normal_modified.airline_warning
-
-    let s:R1 = airline#themes#get_highlight('DiffChange')
-    let s:R2 = s:N2
-    let s:R3 = s:N3
-    let g:airline#themes#lucius#palette.replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3)
-    let g:airline#themes#lucius#palette.replace_modified = g:airline#themes#lucius#palette.normal_modified
-    let g:airline#themes#lucius#palette.replace.airline_warning = g:airline#themes#lucius#palette.normal.airline_warning
-    let g:airline#themes#lucius#palette.replace_modified.airline_warning = g:airline#themes#lucius#palette.normal_modified.airline_warning
-
-    let s:V1 = airline#themes#get_highlight('Cursor')
-    let s:V2 = s:N2
-    let s:V3 = s:N3
-    let g:airline#themes#lucius#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
-    let g:airline#themes#lucius#palette.visual_modified = g:airline#themes#lucius#palette.normal_modified
-    let g:airline#themes#lucius#palette.visual.airline_warning = g:airline#themes#lucius#palette.normal.airline_warning
-    let g:airline#themes#lucius#palette.visual_modified.airline_warning = g:airline#themes#lucius#palette.normal_modified.airline_warning
-
-    let s:IA = airline#themes#get_highlight('StatusLineNC')
-    let g:airline#themes#lucius#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
-    let g:airline#themes#lucius#palette.inactive_modified = {
-                \ 'airline_c': [ modified_group[0], '', modified_group[2], '', '' ]
-                \ }
-
-    let g:airline#themes#lucius#palette.accents = {
-                \ 'red': airline#themes#get_highlight('Constant'),
-                \ }
-
-endfunction
-
-call airline#themes#lucius#refresh()
-let g:airline_powerline_fonts=1
-" let g:airline_solarized_bg='dark'
-" let g:airline_theme='solarized'
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 
 " auto format rust code
 let g:rustfmt_autosave = 1
 
 set bg=dark
-colorscheme lucius
-LuciusDarkHighContrast
+colorscheme solarized
 
 function s:setupWrap()
   set wrap
@@ -167,9 +125,11 @@ au BufRead,BufNewFile *.{markdown,md} call s:setupMarkup()
 au BufRead,BufNewFile *.hjs set ft=handlebars
 au BufRead,BufNewFile *.txt call s:setupWrap()
 au FileType latex,tex,md,markdown setlocal spell
+au FileType markdown,md let vim_markdown_preview_toggle=2
 au BufRead,BufNewFile */.zsh/* set ft=zsh
 au BufRead,BufNewFile */.zsh/**/* set ft=zsh
 au BufRead,BufNewFile */my-dotfiles/zsh/**/* set ft=zsh
+au BufRead,BufNewFile {BUILD,BUILD.bazel} set ft=bzl
 
 au BufRead,BufNewFile {Berksfile,metadata.rb,recipes/*.rb,resources/*.rb,libraries/*.rb,spec/unit/recipes/*.rb} set ft=ruby.chef
 au FileType ruby.chef let b:neomake_ruby_rubocop_exe = 'cookstyle'
@@ -194,10 +154,11 @@ nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 set backspace=indent,eol,start
 filetype plugin indent on
 
-map <leader>t :Files<CR>
+map <leader>t :GFiles<CR>
 map <leader>b :Buffers<CR>
 map <leader>j :BTags<CR>
 map <leader>J :Tags<CR>
+map <leader>i :GoIfErr<CR>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -207,3 +168,64 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 
 map <silent> <leader>d <Plug>DashSearch
+
+" lightline/airline handles the mode display
+set noshowmode
+
+let g:lightline = {
+  \ 'colorscheme': 'solarized',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'spell', 'paste'], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+  \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ], [ 'lineinfo' ], [ 'percent' ], [ 'filetype' ] ],
+  \ },
+  \ 'component_expand': {
+  \   'linter_checking': 'lightline#ale#checking',
+  \   'linter_warnings': 'lightline#ale#warnings',
+  \   'linter_errors': 'lightline#ale#errors',
+  \   'linter_ok': 'lightline#ale#ok',
+  \ },
+  \ 'component_type': {
+  \   'linter_checking': 'left',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'left',
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'fugitive#head',
+  \   'spell': 'LightlineShowSpell',
+  \ },
+  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+  \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
+  \}
+
+function! LightlineShowSpell()
+  let spellang = printf(" [%s]", toupper(substitute(&spelllang, ',', '/', 'g')))
+  if &spell
+    if winwidth(0) >= 90
+      return "SPELL" . spellang
+    else
+      return "SPELL"
+    endif
+  endif
+  return ''
+endfunction
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<tab>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-b>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+let g:ale_linters = {
+\   'proto': ['prototool'],
+\}
+
+au FileType proto let b:ale_lint_on_text_changed = 'never'
+
+let g:org_agenda_files = ['~/org/*.org']

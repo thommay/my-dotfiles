@@ -7,13 +7,16 @@
         fzf
         git
         gnupg
-        "google-cloud-sdk"
         go
-        "hub-2.3.0"
+        "hub"
         jq
         neovim
+        nodejs
+        "python3.6-grip"
         ripgrep
         "ruby-2.5.1"
+        terraform
+        watch
         zsh
       ];
     };
