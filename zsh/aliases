@@ -41,7 +41,7 @@ function pw () {
   cmd=$1
   shift
   case $cmd in
-    "diff") args="diff --use_bazel $@";;
+    "diff") args="diff $@";;
     "gen") args="gen --output_dir=/tmp/pw --tag_for_unpinned=$1";;
   esac
   bazel run //go/src/improbable.io/cmd/playwright -- $args

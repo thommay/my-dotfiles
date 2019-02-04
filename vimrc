@@ -138,7 +138,7 @@ let g:go_fmt_command = "goimports"
 
 call neomake#configure#automake('rw', 1000)
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ }
 let g:LanguageClient_autoStart = 1
 

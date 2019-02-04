@@ -1,5 +1,6 @@
 [github]
   user = thommay
+  token = f86dc812436747d281893a8a6f8b70b712a54750
 [user]
 	name = Thom May
   email = thom@may.lt
@@ -30,17 +31,18 @@
 	program = /usr/local/bin/gpg
 [alias]
   st = status -sb
-  ci = commit -s
-  cm = commit -s -m
-  ca = commit -s -av
+  ci = commit
+  cm = commit -m
+  ca = commit -av
   co = checkout
   cb = "!f() { git fetch; git checkout -b $1 ${2-origin/master}; }; f"
   lp = log -p
   amend = commit --amend
   ai = add -p
   hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
-  p = pull --rebase --prune
+  p = pull --prune
   pu = push -u
+  pf = push -f
   pur = "!git push -u ${1-origin} && hub pull-request -b ${2-master}"
   fu = checkout -f
   get-pr = "!_git_pr() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1; }; _git_pr"
@@ -50,3 +52,9 @@
 	stashq = -c commit.gpgsign=false stash
   aliases = "!git config -l |grep alias| cut -c 7-"
   new-tree = "!f() { git fetch; git worktree add -b $1 $2 ${3-origin/master}; }; f"
+[fetch]
+	prune = true
+[pull]
+	rebase = true
+[merge]
+	conflictstyle = diff3
