@@ -40,7 +40,7 @@ install-vim: | $(HOME)/.config/nvim $(HOME)/.local/share/nvim/site/autoload/plug
 
 install-dotfiles:
 	ln -sf $(CURDIR)/gitconfig $(HOME)/.gitconfig
-	install -d -m $(HOME)/.config/alacritty
+	install -d -m 0755 $(HOME)/.config/alacritty
 	ln -sf $(CURDIR)/alacritty.yml $(HOME)/.config/alacritty/alacritty.yml
 
 fonts: 
