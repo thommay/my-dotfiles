@@ -4,8 +4,6 @@ source $ZPLUG_HOME/init.zsh
 zplug "~/.zsh", from:local
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "spwhitt/nix-zsh-completions"
-zplug "chisui/zsh-nix-shell"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check; then
@@ -25,3 +23,5 @@ promptinit
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g

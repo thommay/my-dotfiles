@@ -1,6 +1,6 @@
 [github]
   user = thommay
-  token = f86dc812436747d281893a8a6f8b70b712a54750
+  token = FOO
 [user]
 	name = Thom May
   email = thom@may.lt
@@ -37,7 +37,7 @@
   co = checkout
   cb = "!f() { git fetch; git checkout -b $1 ${2-origin/master}; }; f"
   lp = log -p
-  amend = commit --amend
+  amend = commit --amend --no-edit
   ai = add -p
   hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
   p = pull --prune
@@ -58,3 +58,6 @@
 	rebase = true
 [merge]
 	conflictstyle = diff3
+  renamelimit = 6000
+[pack]
+	useSparse = true

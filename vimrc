@@ -27,7 +27,7 @@ Plug 'neomake/neomake'
 Plug 'dougireton/vim-chef', { 'for': 'ruby.chef' }
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'dag/vim-fish', { 'for': 'fish' }
-Plug 'autozimu/LanguageClient-neovim' , { 'branch': 'next', 'do': ':bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim' , { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go'
 Plug 'ncm2/ncm2'

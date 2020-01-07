@@ -58,10 +58,17 @@ if [ -f '/Users/thommay/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/th
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/thommay/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/thommay/google-cloud-sdk/completion.zsh.inc'; fi
 
-if [ -d /improbable/tools ]; then 
+if [ -d $HOME/.improbable/imp-tool ]; then
+  PATH="$HOME/.improbable/imp-tool/subscriptions:$PATH"
+  export SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh
+elif [ -d /improbable/tools ]; then 
   export IMPROBABLE_TOOLS=/improbable/tools
   PATH="/improbable/tools/latest/mac:$PATH"
   export SSH_AUTH_SOCK=${HOME}/.gnupg/S.gpg-agent.ssh
+fi
+
+if [ -d $HOME/.tfenv/bin ]; then
+  PATH="$HOME/.tfenv/bin:$PATH"
 fi
 
 export PATH=$PATH

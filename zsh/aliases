@@ -28,13 +28,17 @@ function bep () {
 }
 
 function run_gpg_agent() {
-  /Users/thommay/.nix-profile/bin/gpg-agent --daemon --options /Users/thommay/.gnupg/gpg-agent.conf
+ /usr/local/MacGPG2/bin/gpg-agent --daemon --options /Users/thommay/.gnupg/gpg-agent.conf
 }
 
 function brun () {
   pth=$1
   shift
   bazel run //go/src/improbable.io/$pth -- $@
+}
+
+function btest () {
+  bazel test //go/src/improbable.io/$1:go_default_test
 }
 
 function pw () {
@@ -46,3 +50,5 @@ function pw () {
   esac
   bazel run //go/src/improbable.io/cmd/playwright -- $args
 }
+
+alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'

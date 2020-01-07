@@ -1,0 +1,9 @@
+#compdef imp-kubectl
+
+_imp_kubectl () {
+  local clusters=$(kubectl config get-contexts --output='name')
+  _arguments -C \
+    "-h[Help text]" \
+    "--help[Help text]" \
+    "1: :(${clusters}[@])"
+  }
