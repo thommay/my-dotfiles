@@ -39,9 +39,12 @@ install-vim: | $(HOME)/.config/nvim $(HOME)/.local/share/nvim/site/autoload/plug
 	nvim +PlugInstall +qall
 
 install-dotfiles:
+	install -d -m 0755 $(HOME)/.config
+	ln -sf $(CURDIR)/gittemplate $(HOME)/.config/git
 	ln -sf $(CURDIR)/gitconfig $(HOME)/.gitconfig
 	install -d -m 0755 $(HOME)/.config/alacritty
 	ln -sf $(CURDIR)/alacritty.yml $(HOME)/.config/alacritty/alacritty.yml
+	ln -sf $(CURDIR)/starship.toml $(HOME)/.config/starship.toml
 
 fonts: 
 	git submodule update --init --recursive

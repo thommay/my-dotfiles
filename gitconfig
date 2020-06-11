@@ -61,3 +61,5 @@
   renamelimit = 6000
 [pack]
 	useSparse = true
+[init]
+	templateDir = /Users/thommay/.config/git

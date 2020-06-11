@@ -28,8 +28,6 @@ Plug 'dougireton/vim-chef', { 'for': 'ruby.chef' }
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'autozimu/LanguageClient-neovim' , { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/ncm-rct-complete'
@@ -54,6 +52,8 @@ Plug 'tpope/vim-speeddating'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/utl.vim'
 Plug 'jceb/vim-orgmode'
+Plug 'aklt/plantuml-syntax'
+Plug 'cespare/vim-toml'
 
 call plug#end()
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -96,8 +96,6 @@ endif
 let g:gist_detect_filetype=1
 let g:gist_open_browser_after_post=1
 
-let g:deoplete#enable_at_startup = 1
-
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 
@@ -134,11 +132,16 @@ au BufRead,BufNewFile {BUILD,BUILD.bazel} set ft=bzl
 au BufRead,BufNewFile {Berksfile,metadata.rb,recipes/*.rb,resources/*.rb,libraries/*.rb,spec/unit/recipes/*.rb} set ft=ruby.chef
 au FileType ruby.chef let b:neomake_ruby_rubocop_exe = 'cookstyle'
 
+au BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 let g:go_fmt_command = "goimports"
 
 call neomake#configure#automake('rw', 1000)
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['gopls'],
     \ }
 let g:LanguageClient_autoStart = 1
 

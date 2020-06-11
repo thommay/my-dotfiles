@@ -1,0 +1,23 @@
+add_newline = false
+prompt_order = [
+"battery","user","hostname","time","directory","character",
+]
+
+[directory]
+prefix = ""
+fish_style_pwd_dir_length = 1
+
+[git_branch]
+prefix=""
+symbol=""
+
+[git_status]
+modified = "U"
+stashed = "*"
+
+[hostname]
+prefix="("
+suffix=")"
+
+[time]
+disabled = false
