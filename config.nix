@@ -8,13 +8,10 @@
         git
         gnupg
         go
-        "hub"
+        hub
         jq
         neovim
-        nodejs
-        "python3.6-grip"
         ripgrep
-        "ruby-2.5.1"
         terraform
         watch
         zsh
