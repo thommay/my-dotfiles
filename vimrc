@@ -27,7 +27,6 @@ Plug 'neomake/neomake'
 Plug 'dougireton/vim-chef', { 'for': 'ruby.chef' }
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'dag/vim-fish', { 'for': 'fish' }
-Plug 'autozimu/LanguageClient-neovim' , { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/ncm-rct-complete'
@@ -54,6 +53,8 @@ Plug 'vim-scripts/utl.vim'
 Plug 'jceb/vim-orgmode'
 Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
+Plug 'neovim/nvim-lsp'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -139,11 +140,14 @@ let g:go_info_mode='gopls'
 let g:go_fmt_command = "goimports"
 
 call neomake#configure#automake('rw', 1000)
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'go': ['gopls'],
-    \ }
-let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+"     \ 'go': ['gopls'],
+"     \ }
+" let g:LanguageClient_autoStart = 1
+
+lua require'nvim_lsp'.rust_analyzer.setup({})
+lua require'nvim_lsp'.gopls.setup({})
 
 set shortmess+=c
 " inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
@@ -232,3 +236,5 @@ let g:ale_linters = {
 au FileType proto let b:ale_lint_on_text_changed = 'never'
 
 let g:org_agenda_files = ['~/org/*.org']
+
+let g:python3_host_prog = '/Users/thommay/.pyenv/versions/py3nvim/bin/python'

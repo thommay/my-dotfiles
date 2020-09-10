@@ -9,6 +9,9 @@
 	protocol = https
 [credential]
 	helper = osxkeychain
+	UseHttpPath = true
+[credential "https://git-codecommit.eu-west-1.amazonaws.com"]
+  helper = "!aws codecommit credential-helper $@"
 [push]
 	default = current
 [core]

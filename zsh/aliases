@@ -8,6 +8,7 @@ alias la='ls -a'
 alias ll='ls -l'
 alias vi="nvim"
 alias vim="nvim"
+alias kubectl="kubectl.1.17"
 
 alias -g G='|grep'
 alias -g L='|less'

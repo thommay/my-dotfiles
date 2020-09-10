@@ -5,7 +5,15 @@ export PATH := $(PATH):$(HOME)/.nix-profile/bin
 
 .PHONY: install-nix install-zsh install-vim
 
-all: install-nix install-zsh install-vim install-dotfiles install-fonts
+all: install-pkg install-zsh install-vim install-dotfiles install-fonts
+
+/usr/local/Cellar:
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash -c
+
+install-pkg: /usr/local/Cellar
+ifeq ($(UNAME),"Darwin")
+	brew bundle
+endif
 
 /nix:
 	sudo echo "Warming up the brain farm"
