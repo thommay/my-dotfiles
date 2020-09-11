@@ -237,4 +237,4 @@ au FileType proto let b:ale_lint_on_text_changed = 'never'
 
 let g:org_agenda_files = ['~/org/*.org']
 
-let g:python3_host_prog = '/Users/thommay/.pyenv/versions/py3nvim/bin/python'
+let g:python3_host_prog = '~/.pyenv/versions/py3nvim/bin/python'
