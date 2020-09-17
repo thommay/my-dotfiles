@@ -21,10 +21,4 @@ promptinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/vault vault
-
 autoload zmv
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /Users/thommay/.improbable/imp-tool/binaries/v2/kustomize/kustomize%2Fv3.5.4/darwin/amd64/kustomize kustomize
