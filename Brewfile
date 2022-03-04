@@ -1,4 +1,4 @@
-brew "hub"
+brew "gh"
 brew "ripgrep"
 brew "neovim"
 brew "jq"
