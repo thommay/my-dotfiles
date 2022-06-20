@@ -53,7 +53,8 @@ Plug 'vim-scripts/utl.vim'
 Plug 'jceb/vim-orgmode'
 Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
-Plug 'neovim/nvim-lsp'
+Plug 'neovim/nvim-lspconfig'
+Plug 'simrat39/rust-tools.nvim'
 Plug 'vimwiki/vimwiki'
 
 call plug#end()
@@ -146,8 +147,8 @@ call neomake#configure#automake('rw', 1000)
 "     \ }
 " let g:LanguageClient_autoStart = 1
 
-lua require'nvim_lsp'.rust_analyzer.setup({})
-lua require'nvim_lsp'.gopls.setup({})
+lua require'lspconfig'.gopls.setup({})
+lua require('rust-tools').setup({})
 
 set shortmess+=c
 " inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
@@ -237,4 +238,4 @@ au FileType proto let b:ale_lint_on_text_changed = 'never'
 
 let g:org_agenda_files = ['~/org/*.org']
 
-let g:python3_host_prog = '~/.pyenv/versions/py3nvim/bin/python'
+"let g:python3_host_prog = '~/.pyenv/versions/py3nvim/bin/python'

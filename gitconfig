@@ -17,6 +17,7 @@
 [core]
 	excludesfile = /Users/thom/.gitignore_global
 	autocrlf = input
+;	fsmonitor = rs-git-fsmonitor
 [url "https://github.com/"]
 	insteadOf = git://github.com/
 [diff]
@@ -64,5 +65,5 @@
   renamelimit = 6000
 [pack]
 	useSparse = true
-[init]
-	templateDir = /Users/thommay/.config/git
+; [init]
+	; templateDir = /Users/thommay/.config/git

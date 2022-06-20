@@ -1,17 +1,25 @@
-HOSTNAME = $(shell hostname)
-UNAME = $(shell uname)
-ID = $(shell whoami)
+hostname = $(shell hostname)
+uname = $(shell uname)
+arch = $(shell uname -m)
+id = $(shell whoami)
+ifeq ($(arch),arm64)
+brewpath := /opt/homebrew/Cellar
+else
+brewpath := /usr/local/Cellar
+endif
+
 export PATH := $(PATH):$(HOME)/.nix-profile/bin
 
 .PHONY: install-nix install-zsh install-vim
 
 all: install-pkg install-zsh install-vim install-dotfiles install-fonts
 
-/usr/local/Cellar:
-	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash -c
+$(brewpath):
+	sudo echo "Warming up the brain farm"
+	curl -fsL https://raw.githubusercontent.com/Homebrew/install/master/install.sh|bash -s
 
-install-pkg: /usr/local/Cellar
-ifeq ($(UNAME),"Darwin")
+install-pkg: $(brewpath)
+ifeq ($(uname),Darwin)
 	brew bundle
 endif
 

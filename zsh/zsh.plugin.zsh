@@ -20,6 +20,13 @@ autoload -Uz direnv
 . ${plugin_dir}/settings
 . ${plugin_dir}/aliases
 
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+autoload -Uz compinit
+compinit
+
 unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/helpfiles
