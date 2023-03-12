@@ -1,14 +1,14 @@
 alias grep='egrep --color=auto'
 
 alias be='nocorrect bundle exec'
-$(which hub >/dev/null 2>&1) && alias git=hub
 alias ls=' ls'
 alias cd=' cd'
 alias la='ls -a'
 alias ll='ls -l'
-alias vi="nvim"
-alias vim="nvim"
-alias kubectl="kubectl.1.17"
+alias vi="hx"
+alias vim="hx"
+alias ctags="`brew --prefix`/bin/ctags"
+alias puml="java -jar ~/bin/plantuml.jar -Djava.awt.headless=true -verbose"
 
 alias -g G='|grep'
 alias -g L='|less'
@@ -18,7 +18,7 @@ function get_repo_url() {
   parent=$(git rev-parse --show-toplevel)
   target=$(realpath $1)
   rel=${target#$parent}
-  git browse -u -- blob/master$rel
+  gh browse -- blob/master$rel
 }
 
 # use bundle exec with a custom gem path
@@ -28,28 +28,11 @@ function bep () {
   BUNDLE_GEMFILE=$gemfile bundle exec $@
 }
 
-function run_gpg_agent() {
- /usr/local/MacGPG2/bin/gpg-agent --daemon --options /Users/thommay/.gnupg/gpg-agent.conf
-}
-
 function brun () {
   pth=$1
   shift
-  bazel run //go/src/improbable.io/$pth -- $@
-}
-
-function btest () {
-  bazel test //go/src/improbable.io/$1:go_default_test
-}
-
-function pw () {
-  cmd=$1
-  shift
-  case $cmd in
-    "diff") args="diff $@";;
-    "gen") args="gen --output_dir=/tmp/pw --tag_for_unpinned=$1";;
-  esac
-  bazel run //go/src/improbable.io/cmd/playwright -- $args
+  bazel run //$pth -- $@
 }
 
 alias inflate='ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'
+

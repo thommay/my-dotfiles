@@ -37,6 +37,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-vinegar'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'editorconfig/editorconfig-vim'
@@ -53,9 +54,13 @@ Plug 'vim-scripts/utl.vim'
 Plug 'jceb/vim-orgmode'
 Plug 'aklt/plantuml-syntax'
 Plug 'cespare/vim-toml'
-Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
+Plug 'neovim/nvim-lsp'
+Plug 'neovim/nvim-lspconfig'
 Plug 'vimwiki/vimwiki'
+Plug 'lingua-pupuli/puppet-editor-services', { 'do': 'bundle install' }
+Plug 'rodjek/vim-puppet'
+Plug 'google/vim-jsonnet'
 
 call plug#end()
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -136,8 +141,8 @@ au FileType ruby.chef let b:neomake_ruby_rubocop_exe = 'cookstyle'
 
 au BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
 let g:go_fmt_command = "goimports"
 
 call neomake#configure#automake('rw', 1000)
@@ -238,4 +243,13 @@ au FileType proto let b:ale_lint_on_text_changed = 'never'
 
 let g:org_agenda_files = ['~/org/*.org']
 
-"let g:python3_host_prog = '~/.pyenv/versions/py3nvim/bin/python'
+if has("autocmd")
+  "" PUPPET
+  autocmd BufNewFile,BufRead *.pp setfiletype puppet
+  autocmd BufNewFile,BufRead *.pp set shiftwidth=2 softtabstop=2 filetype=puppet
+endif
+
+let g:python3_host_prog = '~/.pyenv/versions/py3nvim/bin/python'
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)

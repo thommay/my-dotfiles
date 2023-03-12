@@ -1,0 +1,11 @@
+
+[[language]]
+name="jsonnet"
+scope="source.jsonnet"
+file-types= ["jsonnet"]
+roots=[]
+
+[[grammar]]
+name="jsonnet"
+source = { git = "https://github.com/sourcegraph/tree-sitter-jsonnet", rev="main"}
+

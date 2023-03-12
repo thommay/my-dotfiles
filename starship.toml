@@ -1,23 +1,29 @@
 add_newline = false
-prompt_order = [
-"battery","user","hostname","time","directory","character",
-]
+continuation_prompt = ">"
+format = '$time $directory % '
+right_format = '(\[$git_branch$git_status\])($username$hostname)'
 
 [directory]
-prefix = ""
 fish_style_pwd_dir_length = 1
+format = '$path'
+truncate_to_repo = false
 
 [git_branch]
-prefix=""
+format="$branch"
 symbol=""
+truncation_length = 6
 
 [git_status]
 modified = "U"
 stashed = "*"
+untracked='?'
+format='(|$all_status)'
 
 [hostname]
-prefix="("
-suffix=")"
+format='@$hostname'
+trim_at='.apple.com'
 
 [time]
 disabled = false
+time_format = '%R'
+format='$time'

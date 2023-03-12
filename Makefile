@@ -3,7 +3,7 @@ uname = $(shell uname)
 arch = $(shell uname -m)
 id = $(shell whoami)
 ifeq ($(arch),arm64)
-brewpath := /opt/homebrew/Cellar
+brewpath := /opt/homebrew
 else
 brewpath := /usr/local/Cellar
 endif
@@ -12,7 +12,7 @@ export PATH := $(PATH):$(HOME)/.nix-profile/bin
 
 .PHONY: install-nix install-zsh install-vim
 
-all: install-pkg install-zsh install-vim install-dotfiles install-fonts
+all: install-pkg install-zsh  install-dotfiles install-fonts
 
 $(brewpath):
 	sudo echo "Warming up the brain farm"
@@ -36,12 +36,12 @@ $(HOME)/.zplug:
 	git clone https://github.com/zplug/zplug $(HOME)/.zplug
 
 install-zsh: | $(HOME)/.zplug
-	ln -sf $(CURDIR)/zsh/rc $(HOME)/.zshrc
+	ln -sf "$(CURDIR)/zsh/rc" "$(HOME)/.zshrc"
 	install -d -m 0755 $(HOME)/.zsh
-	ln -sf $(CURDIR)/zsh/aliases $(HOME)/.zsh/aliases
-	ln -sf $(CURDIR)/zsh/settings $(HOME)/.zsh/settings
-	ln -sf $(CURDIR)/zsh/zsh.plugin.zsh $(HOME)/.zsh/zsh.plugin.zsh
-	ln -sf $(CURDIR)/zsh/lib $(HOME)/.zsh/lib
+	ln -sf "$(CURDIR)/zsh/aliases" "$(HOME)/.zsh/aliases"
+	ln -sf "$(CURDIR)/zsh/settings" "$(HOME)/.zsh/settings"
+	ln -sf "$(CURDIR)/zsh/zsh.plugin.zsh" "$(HOME)/.zsh/zsh.plugin.zsh"
+	ln -sf "$(CURDIR)/zsh/lib" "$(HOME)/.zsh/lib"
 
 $(HOME)/.config/nvim $(HOME)/.local/share/nvim:
 	install -d -m 0755 $@
@@ -56,11 +56,15 @@ install-vim: | $(HOME)/.config/nvim $(HOME)/.local/share/nvim/site/autoload/plug
 
 install-dotfiles:
 	install -d -m 0755 $(HOME)/.config
-	ln -sf $(CURDIR)/gittemplate $(HOME)/.config/git
-	ln -sf $(CURDIR)/gitconfig $(HOME)/.gitconfig
+	ln -sf "$(CURDIR)/gittemplate" "$(HOME)/.config/git"
+	ln -sf "$(CURDIR)/gitconfig" "$(HOME)/.gitconfig"
+	install -d -m 0755 $(HOME)/.config/helix
+	ln -sf "$(CURDIR)/helix/config.toml" "$(HOME)/.config/helix/config.toml"
+	ln -sf "$(CURDIR)/helix/languages.toml" "$(HOME)/.config/helix/languages.toml"
 	install -d -m 0755 $(HOME)/.config/alacritty
-	ln -sf $(CURDIR)/alacritty.yml $(HOME)/.config/alacritty/alacritty.yml
-	ln -sf $(CURDIR)/starship.toml $(HOME)/.config/starship.toml
+	ln -sf "$(CURDIR)/alacritty.yml" "$(HOME)/.config/alacritty/alacritty.yml"
+	ln -sf "$(CURDIR)/starship.toml" "$(HOME)/.config/starship.toml"
+	ln -sf "$(CURDIR)/ripgreprc" "$(HOME)/.config/ripgreprc"
 
 fonts: 
 	git submodule update --init --recursive

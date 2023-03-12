@@ -3,13 +3,15 @@
   token = FOO
 [user]
 	name = Thom May
-  email = thom@may.lt
+	email = thom@may.yt
 [hub]
 	http-clone = true
 	protocol = https
 [credential]
 	helper = osxkeychain
 	UseHttpPath = true
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://git-codecommit.eu-west-1.amazonaws.com"]
   helper = "!aws codecommit credential-helper $@"
 [push]
@@ -17,45 +19,52 @@
 [core]
 	excludesfile = /Users/thom/.gitignore_global
 	autocrlf = input
-;	fsmonitor = rs-git-fsmonitor
+  ; pager = delta
+; [interactive]
+  ; diffFilter = delta --color-only
 [url "https://github.com/"]
 	insteadOf = git://github.com/
 [diff]
 	algorithm = patience
   compactionHeuristic = true
+  colorMoved = default
 [rerere]
 	enabled = true
 	autoupdate = true
 [rebase]
 	autostash = true
 	autosquash = true
+  
 [commit]
 	; gpgsign = true
-[gpg]
-	program = /usr/local/bin/gpg
 [alias]
   st = status -sb
   ci = commit
   cm = commit -m
   ca = commit -av
   co = checkout
-  cb = "!f() { git fetch; git checkout -b $1 ${2-origin/master}; }; f"
+  cb = "!f() { git fetch origin; git checkout -b $1 $(git head); }; f"
   lp = log -p
   amend = commit --amend --no-edit
   ai = add -p
+  ap = ai
   hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
   p = pull --prune
   pu = push -u
   pf = push -f
-  pur = "!git push -u ${1-origin} && hub pull-request -b ${2-master}"
-  fu = checkout -f
-  get-pr = "!_git_pr() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1; }; _git_pr"
+  pur = "!gh pr create"
+  get-pr = "!gh get pr"
+  head =  rev-parse --abbrev-ref origin/HEAD 
   fix = commit --no-gpg-sign --fixup
-  save = commit --no-gpg-sign -m 'save game'
-  squash = "!git fetch origin && git rebase -i --autosquash origin/master"
-	stashq = -c commit.gpgsign=false stash
+  fu = checkout -f
+  save = commit -a --no-gpg-sign -m 'save game'
+  squash = "!f() { git fetch; git rebase -i --autosquash $(git head); }; f"
+  stashq = -c commit.gpgsign=false stash
   aliases = "!git config -l |grep alias| cut -c 7-"
-  new-tree = "!f() { git fetch; git worktree add -b $1 $2 ${3-origin/master}; }; f"
+  new-tree = "!f() { git fetch; git worktree add -b $1 $2 $(git head); }; f"
+  fork = "!gh repo fork"
+  create = "!gh repo create"
+  branches = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 [fetch]
 	prune = true
 [pull]
@@ -65,5 +74,19 @@
   renamelimit = 6000
 [pack]
 	useSparse = true
-; [init]
+[init]
 	; templateDir = /Users/thommay/.config/git
+  defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[delta]
+  syntax-theme = Monokai Extended Origin
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[gpg "x509"]
+	program = /usr/local/bin/ac-sign
+[gpg]
+	format = x509

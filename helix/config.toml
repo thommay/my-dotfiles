@@ -1,0 +1,9 @@
+theme = "autumn"
+[editor]
+mouse=false
+scroll-lines=0
+middle-click-paste=false
+
+[keys.normal]
+y = "yank_main_selection_to_clipboard"
+p = "paste_clipboard_after"

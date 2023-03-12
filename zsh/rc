@@ -22,3 +22,9 @@ promptinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 autoload zmv
+[[ :$PATH: == *:$HOME/bin:* ]] || PATH=$HOME/bin:$PATH
+. ~/.isd-cli-autocomplete-zsh
+
+gpg-connect-agent /bye
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export COURSIER_CREDENTIALS=~/.config/coursier/credentials.properties

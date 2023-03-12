@@ -1,6 +1,6 @@
 # https://github.com/nathanl/.dotfiles/blob/ff013edb1850f6a576c97958ec130778daa082b5/zsh/chruby
 
-. ~/.nix-profile/share/chruby/chruby.sh
+. /opt/homebrew/share/chruby/chruby.sh
 
 unset RUBY_AUTO_VERSION
 
