@@ -12,7 +12,7 @@ export PATH := $(PATH):$(HOME)/.nix-profile/bin
 
 .PHONY: install-nix install-zsh install-vim
 
-all: install-pkg install-zsh  install-dotfiles install-fonts
+all: install-pkg install-dotfiles install-fonts
 
 $(brewpath):
 	sudo echo "Warming up the brain farm"
@@ -65,6 +65,12 @@ install-dotfiles:
 	ln -sf "$(CURDIR)/alacritty.yml" "$(HOME)/.config/alacritty/alacritty.yml"
 	ln -sf "$(CURDIR)/starship.toml" "$(HOME)/.config/starship.toml"
 	ln -sf "$(CURDIR)/ripgreprc" "$(HOME)/.config/ripgreprc"
+	install -d -m 0755 "$(HOME)/Library/Application Support/nushell"
+	ln -sf  "$(CURDIR)/nushell/config.nu" "$(HOME)/Library/Application Support/nushell/config.nu"
+	ln -sf  "$(CURDIR)/nushell/vendor" "$(HOME)/Library/Application Support/nushell/vendor"
+	install -d -m 0755 "$(HOME)/.nu"
+	install -d -m 0755 "$(HOME)/Library/Application Support/jj"
+	ln -sf  "$(CURDIR)/jj.toml" "$(HOME)/Library/Application Support/jj/config.toml"
 
 fonts: 
 	git submodule update --init --recursive

@@ -1,11 +1,40 @@
+[[language]]
+name = "go"
+auto-format=true
+formatter = {command = "goimports"}
 
 [[language]]
-name="jsonnet"
-scope="source.jsonnet"
-file-types= ["jsonnet"]
-roots=[]
+name = "rust"
+
+# If this doesn't work, you might be on a older release version which handles this differently.
+# Try using [language.config.check] instead of [language-server.rust-analyzer.config.check]
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[[language]]
+name="c"
+auto-format=false
+indent = {unit=" ", tab-width=4}
+text-width=120
+
+[[language]]
+name="puppet"
+indent = {unit="  ", tab-width=2}
+scope = "source.puppet"
+file-types = ["pp"]
+comment-token = "#"
+roots = []
+grammar = "puppet"
 
 [[grammar]]
-name="jsonnet"
-source = { git = "https://github.com/sourcegraph/tree-sitter-jsonnet", rev="main"}
+name = "puppet"
+source = { git = "https://github.com/tree-sitter-grammars/tree-sitter-puppet", rev = "584522f32495d648b18a53ccb52d988e60de127d" }
+
+[[language]]
+name = "pascal"
+file-types = []
+
+[[language]]
+name = "swift"
+indent = {unit="  ", tab-width=2}
 

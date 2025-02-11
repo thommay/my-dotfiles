@@ -3,7 +3,23 @@ theme = "autumn"
 mouse=false
 scroll-lines=0
 middle-click-paste=false
+bufferline="multiple"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.soft-wrap]
+enable = true
 
 [keys.normal]
-y = "yank_main_selection_to_clipboard"
-p = "paste_clipboard_after"
+A-x = "extend_to_line_bounds"
+X = ["extend_line_up","extend_to_line_bounds"]
+
+[keys.normal.g]
+">" = ["vsplit", "goto_definition"]
+
+[keys.select]
+A-x = "extend_to_line_bounds"
+X = ["extend_line_up","extend_to_line_bounds"]

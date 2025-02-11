@@ -1,0 +1,3 @@
+function force_foil --wraps='foilctl machine forcedeploy --use-without-cani-reservation-i-understand-that-it-is-dangerous --i-understand-this-will-drain --i-understand-this-will-reboot --i-understand-this-is-a-production-location' --description 'alias force_foil foilctl machine forcedeploy --use-without-cani-reservation-i-understand-that-it-is-dangerous --i-understand-this-will-drain --i-understand-this-will-reboot --i-understand-this-is-a-production-location'
+    foilctl machine forcedeploy --use-without-cani-reservation-i-understand-that-it-is-dangerous --i-understand-this-will-drain --i-understand-this-will-reboot --i-understand-this-is-a-production-location $argv
+end

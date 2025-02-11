@@ -1,7 +1,12 @@
 add_newline = false
 continuation_prompt = ">"
-format = '$time $directory % '
+format = '$time $directory $character'
 right_format = '(\[$git_branch$git_status\])($username$hostname)'
+command_timeout = 2000
+
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[✗](bold red)'
 
 [directory]
 fish_style_pwd_dir_length = 1
@@ -11,13 +16,15 @@ truncate_to_repo = false
 [git_branch]
 format="$branch"
 symbol=""
-truncation_length = 6
+truncation_length = 15
+#disabled = true
 
 [git_status]
 modified = "U"
 stashed = "*"
 untracked='?'
 format='(|$all_status)'
+#disabled = true
 
 [hostname]
 format='@$hostname'
@@ -27,3 +34,13 @@ trim_at='.apple.com'
 disabled = false
 time_format = '%R'
 format='$time'
+
+[custom.git_branch]
+when = true
+command = "jj root >/dev/null 2>&1 || starship module git_branch"
+description = "Only show git_branch if we're not in a jj repo"
+
+[custom.git_status]
+when = true
+command = "jj root >/dev/null 2>&1 || starship module git_status"
+description = "Only show git_branch if we're not in a jj repo"

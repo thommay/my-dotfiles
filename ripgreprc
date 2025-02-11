@@ -1,5 +1,8 @@
 --type-add
-pcl:*.pcl
+pcl:*.{pcl,pkl}
+
+--type-add
+pkl:*.{pcl,pkl}
 
 --type-add
 jsonnet:*.{libsonnet,jsonnet}*

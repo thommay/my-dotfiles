@@ -12,16 +12,16 @@
 	UseHttpPath = true
 	helper = 
 	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://git-codecommit.eu-west-1.amazonaws.com"]
-  helper = "!aws codecommit credential-helper $@"
 [push]
 	default = current
 [core]
 	excludesfile = /Users/thom/.gitignore_global
 	autocrlf = input
-  ; pager = delta
-; [interactive]
-  ; diffFilter = delta --color-only
+	editor = hx
+	fsmonitor = true
+    pager = delta
+[interactive]
+   diffFilter = delta --color-only
 [url "https://github.com/"]
 	insteadOf = git://github.com/
 [diff]
@@ -34,16 +34,18 @@
 [rebase]
 	autostash = true
 	autosquash = true
+	updateRefs = true
   
 [commit]
-	; gpgsign = true
+	gpgsign = true
 [alias]
   st = status -sb
   ci = commit
   cm = commit -m
   ca = commit -av
   co = checkout
-  cb = "!f() { git fetch origin; git checkout -b $1 $(git head); }; f"
+  cb = "!f() { gh=$(git head);git fetch origin; git checkout -b $1 ${2:-$gh}; }; f"
+  ;clean = "!f() {  git branch --merged|egrep -v '(^\*|master|develop|main)' | xargs git branch -d; }; f"
   lp = log -p
   amend = commit --amend --no-edit
   ai = add -p
@@ -51,17 +53,17 @@
   hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
   p = pull --prune
   pu = push -u
-  pf = push -f
+  pf = push --force-with-lease
   pur = "!gh pr create"
   get-pr = "!gh get pr"
   head =  rev-parse --abbrev-ref origin/HEAD 
   fix = commit --no-gpg-sign --fixup
   fu = checkout -f
   save = commit -a --no-gpg-sign -m 'save game'
-  squash = "!f() { git fetch; git rebase -i --autosquash $(git head); }; f"
+  squash = "!f() { gh=$(git head);git fetch; git rebase -i --autosquash ${1:-$gh}; }; f"
   stashq = -c commit.gpgsign=false stash
   aliases = "!git config -l |grep alias| cut -c 7-"
-  new-tree = "!f() { git fetch; git worktree add -b $1 $2 $(git head); }; f"
+  new-tree = "!f() { gh=$(git head);git fetch; git worktree add -b $1 $2 ${3:-$gh}; }; f"
   fork = "!gh repo fork"
   create = "!gh repo create"
   branches = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
@@ -70,7 +72,7 @@
 [pull]
 	rebase = true
 [merge]
-	conflictstyle = diff3
+  conflictstyle = zdiff3
   renamelimit = 6000
 [pack]
 	useSparse = true
@@ -83,10 +85,15 @@
 	process = git-lfs filter-process
 	required = true
 [delta]
-  syntax-theme = Monokai Extended Origin
-[credential "https://dev.azure.com"]
-	useHttpPath = true
+#  syntax-theme = Monokai Extended Origin
+  navigate = true
 [gpg "x509"]
 	program = /usr/local/bin/ac-sign
 [gpg]
 	format = x509
+[branch]
+	sort = -committerdate
+[column]
+	ui = auto
+[credential "https://dev.azure.com"]
+	useHttpPath = true
