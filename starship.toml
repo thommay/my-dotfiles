@@ -1,7 +1,7 @@
 add_newline = false
 continuation_prompt = ">"
 format = '$time $directory $character'
-right_format = '(\[$git_branch$git_status\])($username$hostname)'
+right_format = '(\[${custom.jj}\])(\[${custom.git_branch}${custom.git_status}\])($username$hostname)'
 command_timeout = 2000
 
 [character]
@@ -17,14 +17,12 @@ truncate_to_repo = false
 format="$branch"
 symbol=""
 truncation_length = 15
-#disabled = true
 
 [git_status]
 modified = "U"
 stashed = "*"
 untracked='?'
 format='(|$all_status)'
-#disabled = true
 
 [hostname]
 format='@$hostname'
@@ -37,10 +35,17 @@ format='$time'
 
 [custom.git_branch]
 when = true
-command = "jj root >/dev/null 2>&1 || starship module git_branch"
+command = "try {jj root o+e> /dev/null } catch { starship module git_branch}"
 description = "Only show git_branch if we're not in a jj repo"
+format='($output)'
 
 [custom.git_status]
 when = true
-command = "jj root >/dev/null 2>&1 || starship module git_status"
-description = "Only show git_branch if we're not in a jj repo"
+command = "try {jj root o+e> /dev/null } catch { starship module git_status}"
+description = "Only show git_status if we're not in a jj repo"
+format='($output)'
+
+[custom.jj]
+when = "jj root --ignore-working-copy"
+command='''starship-jj --ignore-working-copy starship prompt'''
+format='($output)'

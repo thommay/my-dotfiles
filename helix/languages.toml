@@ -38,3 +38,14 @@ file-types = []
 name = "swift"
 indent = {unit="  ", tab-width=2}
 
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
+
+[[language]]
+name = "python"
+auto-format = true
+language-servers = ["pyright", "ruff"]
